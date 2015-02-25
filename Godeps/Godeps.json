@@ -1,0 +1,5 @@
+{
+	"ImportPath": "github.com/clintonskitson/go1billion",
+	"GoVersion": "go1.3.1",
+	"Deps": []
+}
