@@ -47,11 +47,7 @@ You can choose any of the proper binaries listed above.  If you are running it f
 There is a single parameter currently that can be passed.  The ```numcpu``` parameter will specify how many Go routines that should run in parallel.  These routines will split the 1 billion iterations.
 
 ## API returns
-The following is what you can expect from the API.
-
-
-```http://go1billion.cfapps.io/?numcpu=1```
-
+The following is what you can expect from the API.  ```http://go1billion.cfapps.io/?numcpu=1```
 
 By running this request, or a request that you require, it will generate the JSON response below.
 
