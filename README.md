@@ -55,4 +55,4 @@ The following is what you can expect from the API.
 
 By running this request, or a request that you require, it will generate the JSON response below.
 
-    {"InstanceNumCPU":4,"RequestNumCPU":1,"CountTo":1e+09,"CountToPer":1000000000,"StartingTime":"2015-02-26T03:06:23.204825031Z","EndingTime":"0001-01-01T00:00:00Z","Duration":430786666,"Durationms":430}
+      {"InstanceNumCPU":4,"RequestNumCPU":1,"CountTo":1e+09,"CountToPer":1000000000,"StartingTime":"2015-02-26T03:06:23.204825031Z","EndingTime":"0001-01-01T00:00:00Z","Duration":430786666,"Durationms":430}
