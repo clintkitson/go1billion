@@ -52,14 +52,14 @@ The following is what you can expect from the API.  ```http://go1billion.cfapps.
 The parameters are as follows.
 
 
-    InstanceNumCPU = Number of CPUs available
-    RequestNumCPU = Requested CPUs during test
-    CountTo = Total iterations
-    CountToPer = Total iterations per CPU
-    StartingTime = Start time
-    EndingTime = End time
-    Duration = Microsecond duration
-    Durationms = Millisecond duration
+    instanceNumCPU = Number of CPUs available
+    requestNumCPU = Requested CPUs during test
+    countTo = Total iterations
+    countToPer = Total iterations per CPU
+    startingTime = Start time
+    endingTime = End time
+    duration = Microsecond duration
+    durationms = Millisecond duration
 
 
 By running this request, or a request that you require, it will generate the JSON response below.
