@@ -49,6 +49,19 @@ There is a single parameter currently that can be passed.  The ```numcpu``` para
 ## API returns
 The following is what you can expect from the API.  ```http://go1billion.cfapps.io/?numcpu=1```
 
+The parameters are as follows.
+
+
+    InstanceNumCPU = Number of CPUs available
+    RequestNumCPU = Requested CPUs during test
+    CountTo = Total iterations
+    CountToPer = Total iterations per CPU
+    StartingTime = Start time
+    EndingTime = End time
+    Duration = Microsecond duration
+    Durationms = Millisecond duration
+
+
 By running this request, or a request that you require, it will generate the JSON response below.
 
       {"InstanceNumCPU":4,"RequestNumCPU":1,"CountTo":1e+09,"CountToPer":1000000000,"StartingTime":"2015-02-26T03:06:23.204825031Z","EndingTime":"0001-01-01T00:00:00Z","Duration":430786666,"Durationms":430}
