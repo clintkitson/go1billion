@@ -17,14 +17,14 @@ var NumCPU int
 var CountTo float64
 
 type testInfo struct {
-	InstanceNumCPU int
-	RequestNumCPU  int
-	CountTo        float64
-	CountToPer     int
-	StartingTime   time.Time
-	EndingTime     time.Time
-	Duration       time.Duration
-	Durationms     int64
+	InstanceNumCPU int           `json:"instanceNumCPU"`
+	RequestNumCPU  int           `json:"requestNumCPU"`
+	CountTo        float64       `json:"countTo"`
+	CountToPer     int           `json:"countToPer"`
+	StartingTime   time.Time     `json:"startingTime"`
+	EndingTime     time.Time     `json:"endingTime"`
+	Duration       time.Duration `json:"duration"`
+	Durationms     int64         `json:"durationms"`
 }
 
 func main() {
@@ -70,9 +70,9 @@ func billion(res http.ResponseWriter, req *http.Request) {
 	}
 
 	wg.Wait()
-	EndingTime := time.Now().UTC()
+	testInfo.EndingTime = time.Now().UTC()
 
-	testInfo.Duration = EndingTime.Sub(testInfo.StartingTime)
+	testInfo.Duration = testInfo.EndingTime.Sub(testInfo.StartingTime)
 	testInfo.Durationms = testInfo.Duration.Nanoseconds() / 1e6
 
 	//fmt.Fprintln(res, fmt.Sprintf(`<html><head><title>Go counts to %.0f</title></head><body><pre>`, testInfo.CountTo))
