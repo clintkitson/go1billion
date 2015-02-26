@@ -1,2 +1,4 @@
 cf
 godep
+golang-crosscompile/*
+release/*

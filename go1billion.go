@@ -30,10 +30,16 @@ type testInfo struct {
 func main() {
 	NumCPU = runtime.NumCPU()
 
+	var port string
+	port = os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	runtime.GOMAXPROCS(NumCPU)
 	http.HandleFunc("/", billion)
-	fmt.Println("listening...")
-	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	fmt.Println("listening on port " + port)
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		panic(err)
 	}
