@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"math"
 	"net/http"
 	"os"
@@ -13,6 +15,17 @@ import (
 
 var NumCPU int
 var CountTo float64
+
+type testInfo struct {
+	InstanceNumCPU int
+	RequestNumCPU  int
+	CountTo        float64
+	CountToPer     int
+	StartingTime   time.Time
+	EndingTime     time.Time
+	Duration       time.Duration
+	Durationms     int64
+}
 
 func main() {
 	NumCPU = runtime.NumCPU()
@@ -27,23 +40,23 @@ func main() {
 }
 
 func billion(res http.ResponseWriter, req *http.Request) {
+	var testInfo testInfo
+	testInfo.InstanceNumCPU = NumCPU
+	testInfo.RequestNumCPU, _ = strconv.Atoi(req.URL.Query().Get("numcpu"))
 
-	requestNumCPU, _ := strconv.Atoi(req.URL.Query().Get("numcpu"))
-
-	if requestNumCPU > NumCPU || requestNumCPU < 1 {
-		requestNumCPU = 1
+	if testInfo.RequestNumCPU > testInfo.InstanceNumCPU || testInfo.RequestNumCPU < 1 {
+		testInfo.RequestNumCPU = 1
 	}
 
-	CountTo = 1000000000
-	CountToPer := int(math.Floor(CountTo / float64(requestNumCPU)))
-	fmt.Println(CountToPer)
+	testInfo.CountTo = 1000000000
+	testInfo.CountToPer = int(math.Floor(testInfo.CountTo / float64(testInfo.RequestNumCPU)))
 	var wg sync.WaitGroup
-	startingTime := time.Now().UTC()
-	for i := 0; i < requestNumCPU; i++ {
+	testInfo.StartingTime = time.Now().UTC()
+	for i := 0; i < testInfo.RequestNumCPU; i++ {
 		wg.Add(1)
 		go func() {
-			fmt.Println(fmt.Sprintf("started %v", CountToPer))
-			for i := 0; i < CountToPer; i++ {
+			fmt.Println(fmt.Sprintf("started %v", testInfo.CountToPer))
+			for i := 0; i < testInfo.CountToPer; i++ {
 			}
 			wg.Done()
 		}()
@@ -51,10 +64,18 @@ func billion(res http.ResponseWriter, req *http.Request) {
 	}
 
 	wg.Wait()
-	endingTime := time.Now().UTC()
+	EndingTime := time.Now().UTC()
 
-	var duration time.Duration = endingTime.Sub(startingTime)
+	testInfo.Duration = EndingTime.Sub(testInfo.StartingTime)
+	testInfo.Durationms = testInfo.Duration.Nanoseconds() / 1e6
 
-	fmt.Fprintln(res, fmt.Sprintf(`<html><head><title>Go counts to %.0f</title></head><body><h1>Go counts to 1 billion</h1><p>This is how long it took me to count to 1billion, with %v CPUs:</p><p>%vms</p></body></html>`, CountTo, requestNumCPU, duration.Nanoseconds()/1e6))
+	//fmt.Fprintln(res, fmt.Sprintf(`<html><head><title>Go counts to %.0f</title></head><body><pre>`, testInfo.CountTo))
+	jsonOutput, err := json.Marshal(&testInfo)
+	if err != nil {
+		log.Fatalf("error marshaling: %s", err)
+	}
+
+	fmt.Fprintln(res, string(jsonOutput))
+	//fmt.Fprintln(res, fmt.Sprintf(`</pre></body></html>`))
 
 }
