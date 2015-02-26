@@ -64,8 +64,16 @@ The parameters are as follows.
 
 By running this request, or a request that you require, it will generate the JSON response below.
 
-      {"InstanceNumCPU":4,"RequestNumCPU":1,"CountTo":1e+09,"CountToPer":1000000000,"StartingTime":"2015-02-26T03:06:23.204825031Z","EndingTime":"0001-01-01T00:00:00Z","Duration":430786666,"Durationms":430}
+      {"instanceNumCPU":8,"requestNumCPU":8,"countTo":1e+09,"countToPer":125000000,"startingTime":"2015-02-26T17:19:07.76433989Z","endingTime":"2015-02-26T17:19:07.845708799Z","duration":81368909,"durationms":81}
 
+
+Building and Pushing Docker Container
+-------------------------
+The following process will allow you to cross compile (including static for scratch image), build a Docker container, and send push it out to the hub.docker.com.
+
+    docker run --rm -it -v $GOPATH:/go -w /go/src/github.com/clintonskitson/go1billion golang:1.4-cross make release
+    docker build -t clintonskitson/go1billion .
+    docker push clintonskitson/go1billion
 
 
 Licensing
