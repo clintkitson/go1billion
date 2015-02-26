@@ -2,7 +2,7 @@
 The repository has information necessary to run the Golang Count to One Billlllllllionnnnnn test.
 
 ## Live Version on Run.Pivotal.Io
-[http://go1billion.cfapps.io/](http://go1billion.cfapps.io/)
+[http://go1billion.cfapps.io/?numcpu=4](http://go1billion.cfapps.io/?numcpu=4)
 
 
 
